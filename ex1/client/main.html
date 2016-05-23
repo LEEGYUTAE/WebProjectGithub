@@ -1,21 +1,46 @@
 <head>
-  <title>simple</title>
+    <title>Bootstrap Example</title>
 </head>
-
 <body>
-  <h1>Welcome to Meteor!</h1>
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">WebSiteName</a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#">Page 1</a></li>
+                <li><a href="#">Page 2</a></li>
+                <li><a href="#">Page 3</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container-fluid">
 
-  {{> hello}}
-  {{> info}}
+    <div class="row">
+        <div class="col-sm-8 col-md-8 col-xs-8 col-lg-8">
+            <h3>Column 1</h3>
+            <p>지도 API 가지고 오자 </p>
+
+        </div>
+        <div class="col-sm-4 col-md-4 col-xs-4 col-lg-4">
+            <h3>Column 2</h3>
+            <p>로기인 이랑 회원리스트 보여주자</p>
+        </div>
+
+    </div>
+</div>
+
 </body>
 
-<template name="hello">
-  <button>Click Me</button>
-  <p>You've pressed the button {{counter}} times.</p>
-</template>
-
-<template name="info">
-  <h2>Learn Meteor!</h2>
-  <ul>
-  </ul>
-</template>
