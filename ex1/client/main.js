@@ -1,22 +1,13 @@
-import { Template } from 'meteor/templating';
-import { ReactiveVar } from 'meteor/reactive-var';
+if(Meteor.isClient){
+  Meteor.startup(function(){
+    DaumMaps.load("87be09b4532a7de661fcb29ae7a79517");
+  });
+}
 
-import './main.html';
-
-Template.hello.onCreated(function helloOnCreated() {
-  // counter starts at 0
-  this.counter = new ReactiveVar(0);
-});
-
-Template.hello.helpers({
-  counter() {
-    return Template.instance().counter.get();
-  },
-});
-
-Template.hello.events({
-  'click button'(event, instance) {
-    // increment the counter when button is clicked
-    instance.counter.set(instance.counter.get() + 1);
-  },
+Template.map.onRendered(function(){
+  this.autorun(function(){
+    if(DaumMaps.loaded()){
+      new daum.maps.Map();
+    }
+  });
 });
