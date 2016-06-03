@@ -51,13 +51,13 @@
         google.maps.event.addListener(map, 'click', function (event) {
             addMarker(event.latLng, map);
         });
-        //addMarker(haightAshbury, map);
     }
     function addMarker(location,map){
         var marker = new google.maps.Marker({
             position:location,
             label:labels[labelIndex++%labels.length],
-            map:map
+            map:map,
+            draggable:true
         });
         markers.push(marker);
     }
