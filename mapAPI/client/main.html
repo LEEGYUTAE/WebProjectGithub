@@ -30,14 +30,18 @@
                 <li><a href="#">Page 1</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-                <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                <!--<li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>-->
+                <!--<li><a href="#"><span class="glyphicon glyphicon-log-in"></span> {{> loginButtons}}</a></li>-->
+                <li>{{> loginButtons}}</li>
             </ul>
         </div>
     </div>
 </nav>
+
 <script type="text/javascript">
+
     var map;
+
     function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
             center: {lat: 35.1520623, lng: 129.0563558},//서면지하철역 위도/경도
@@ -58,7 +62,9 @@
 
 
 </script>
+
 <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCBr1T8_N3_WeSy7GzDd0hmIWo5kiWm-sw&callback=initMap"></script>
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCBr1T8_N3_WeSy7GzDd0hmIWo5kiWm-sw&callback=initMap">
+</script>
 
 </body>
