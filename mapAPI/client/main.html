@@ -22,21 +22,21 @@
             <ul class="nav navbar-nav">
                 <li class="active"><a href="#">Home</a></li>
                 <li><a href="#">Page 1</a></li>
-                <li class="active"><input onclick="clearMarkers();" type=button value="Hide Markers"></li>
-                <li class="active"><input onclick="showMarkers();" type=button value="Show All Markers"></li>
-                <li class="active"><input onclick="deleteMarkers();" type=button value="Delete Markers"></li>
+                <li><a href="#" onclick="clearMarkers();">Hide Markers</a></li>
+                <li><input onclick="showMarkers();" type=button value="Show All Markers"></li>
+                <li><input onclick="deleteMarkers();" type=button value="Delete Markers"></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                {{>loginButtons}}
-                <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> </a></li>
+
+                <li><a href="#"><span class="glyphicon glyphicon-log-in"></span>{{>loginButtons}} </a></li>
             </ul>
         </div>
     </div>
 </nav>
 
-<div id="map"></div>
-<script type="text/javascript">
 
+<div id="map"></div>
+<script>
     var map;
     var markers = [];
     var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -55,28 +55,14 @@
         var contentString='<div id="content">'+
                 '<div id="siteNotice">'+
                 '</div>'+
-                '<h1 id="firstHeading" class="firstHeading">Uluru</h1>'+
-                '<div id="bodyContent">'+
-                '<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large ' +
-                'sandstone rock formation in the southern part of the '+
-                'Northern Territory, central Australia. It lies 335&#160;km (208&#160;mi) '+
-                'south west of the nearest large town, Alice Springs; 450&#160;km '+
-                '(280&#160;mi) by road. Kata Tjuta and Uluru are the two major '+
-                'features of the Uluru - Kata Tjuta National Park. Uluru is '+
-                'sacred to the Pitjantjatjara and Yankunytjatjara, the '+
-                'Aboriginal people of the area. It has many springs, waterholes, '+
-                'rock caves and ancient paintings. Uluru is listed as a World '+
-                'Heritage Site.</p>'+
-                '<p>Attribution: Uluru, <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">'+
-                'https://en.wikipedia.org/w/index.php?title=Uluru</a> '+
-                '(last visited June 22, 2009).</p>'+
+                '<h1 id="firstHeading" class="firstHeading">좌표값</h1>'+
+                '<div id="bodyContent">'+ '<input type="text"/>'+
                 '</div>'+
                 '</div>';
 
         infowindow = new google.maps.InfoWindow({
             content: contentString
         });
-
     }
 
     function addMarker(location,map){
@@ -85,11 +71,12 @@
             label:labels[labelIndex++%labels.length],
             map:map,
             draggable:true,//마커를 움직일수 있게 하는 함수
-            title: 'Uluru (Ayers Rock)'
+            title: 'location (Ayers Rock)'
         });
         marker.addListener('click',function(){
             infowindow.open(map,marker);
         });
+
         markers.push(marker);//생성된 마커를 배열에 집어넣는다.
 
     }
@@ -112,7 +99,9 @@
         markers = [];
         labelIndex = 0;
     }
+
 </script>
 <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCBr1T8_N3_WeSy7GzDd0hmIWo5kiWm-sw&signed_in=true&callback=initMap"></script>
+
 </body>
