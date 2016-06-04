@@ -41,6 +41,7 @@
     var markers = [];
     var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     var labelIndex = 0;
+    var infowindow;
 
     function initMap() {
         var haightAshbury = {lat: 35.152, lng: 129.056};
@@ -49,34 +50,64 @@
             center: haightAshbury
         });
         google.maps.event.addListener(map, 'click', function (event) {
-            addMarker(event.latLng, map);
+            addMarker(event.latLng, map);//클릭이벤트를 통한 마커생성
         });
+        var contentString='<div id="content">'+
+                '<div id="siteNotice">'+
+                '</div>'+
+                '<h1 id="firstHeading" class="firstHeading">Uluru</h1>'+
+                '<div id="bodyContent">'+
+                '<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large ' +
+                'sandstone rock formation in the southern part of the '+
+                'Northern Territory, central Australia. It lies 335&#160;km (208&#160;mi) '+
+                'south west of the nearest large town, Alice Springs; 450&#160;km '+
+                '(280&#160;mi) by road. Kata Tjuta and Uluru are the two major '+
+                'features of the Uluru - Kata Tjuta National Park. Uluru is '+
+                'sacred to the Pitjantjatjara and Yankunytjatjara, the '+
+                'Aboriginal people of the area. It has many springs, waterholes, '+
+                'rock caves and ancient paintings. Uluru is listed as a World '+
+                'Heritage Site.</p>'+
+                '<p>Attribution: Uluru, <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">'+
+                'https://en.wikipedia.org/w/index.php?title=Uluru</a> '+
+                '(last visited June 22, 2009).</p>'+
+                '</div>'+
+                '</div>';
+
+        infowindow = new google.maps.InfoWindow({
+            content: contentString
+        });
+
     }
+
     function addMarker(location,map){
         var marker = new google.maps.Marker({
             position:location,
             label:labels[labelIndex++%labels.length],
             map:map,
-            draggable:true
+            draggable:true,//마커를 움직일수 있게 하는 함수
+            title: 'Uluru (Ayers Rock)'
         });
-        markers.push(marker);
-    }
+        marker.addListener('click',function(){
+            infowindow.open(map,marker);
+        });
+        markers.push(marker);//생성된 마커를 배열에 집어넣는다.
 
-    function setMapOnAll(map) {
+    }
+    function setMapOnAll(map) {//모든 마커 출력함수
         for (var i = 0; i < markers.length; i++) {
             markers[i].setMap(map);
         }
     }
 
-    function clearMarkers() {
+    function clearMarkers() {//모든 마커 삭제 함수
         setMapOnAll(null);
     }
 
-    function showMarkers() {
+    function showMarkers() {//모든마커를 출력하는것
         setMapOnAll(map);
     }
 
-    function deleteMarkers() {
+    function deleteMarkers() {//모든마커 삭제
         clearMarkers();
         markers = [];
         labelIndex = 0;
