@@ -6,6 +6,11 @@ Template.body.helpers({
     tasks() {
         return Tasks.find({},{ sort: { createdAt: -1 }} );
     },
+
+    text2() {
+
+        return Tasks.find({});
+    },
 });
 
 Template.body.events({
