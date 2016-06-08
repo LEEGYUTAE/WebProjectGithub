@@ -17,10 +17,15 @@ Template.body.events({
         const target = event.target;
         const text = target.text.value;
 
+        // console.log("body event : " + latLng.lat());
+
+        console.log("body event : " + lat + "/" + lng);
         // Insert a task into the collection
         Tasks.insert({
-            text,
-            createdAt: new Date(), // current time
+            text : text,
+            lat : lat,
+            lng : lng,
+            createdAt: new Date() // current time
         });
 
         // Clear form

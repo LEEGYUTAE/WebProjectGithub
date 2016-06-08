@@ -56,6 +56,10 @@
             center: haightAshbury
         });
         google.maps.event.addListener(map, 'click', function (event) {
+            console.log(event.latLng.lat());
+            console.log(event.latLng.lng());
+            lat = event.latLng.lat();
+            lng = event.latLng.lng();
             addMarker(event.latLng, map);//클릭이벤트를 통한 마커생성
         });
         var contentString = '<div id="content">' +
