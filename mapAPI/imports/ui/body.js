@@ -6,7 +6,13 @@ Template.test1.helpers({
     tasks() {
         return Tasks.find({},{ sort: { createdAt: -1 }} );
     },
+    
+    lala() {
+      return Meteor.user().username;
+    },
+    
 });
+
 
 Template.test1.events({
     'submit .new-task'(event) {
@@ -32,3 +38,4 @@ Template.test1.events({
         target.text.value = '';
     },
 });
+
