@@ -7,7 +7,7 @@ Template.test1.helpers({
         return Tasks.find({},{ sort: { createdAt: -1 }} );
     },
     
-    lala() {
+    PrintUsername() {
       return Meteor.user().username;
     },
     
