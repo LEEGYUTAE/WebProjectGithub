@@ -2,18 +2,13 @@ import { Template } from 'meteor/templating';
 
 import { Tasks } from '../api/tasks.js';
 
-Template.body.helpers({
+Template.test1.helpers({
     tasks() {
         return Tasks.find({},{ sort: { createdAt: -1 }} );
     },
-
-    text2() {
-
-        return Tasks.find({});
-    },
 });
 
-Template.body.events({
+Template.test1.events({
     'submit .new-task'(event) {
         // Prevent default browser form submit
         event.preventDefault();
@@ -22,10 +17,15 @@ Template.body.events({
         const target = event.target;
         const text = target.text.value;
 
+        // console.log("body event : " + latLng.lat());
+
+        console.log("body event : " + lat + "/" + lng);
         // Insert a task into the collection
         Tasks.insert({
-            text,
-            createdAt: new Date(), // current time
+            text : text,
+            lat : lat,
+            lng : lng,
+            createdAt: new Date() // current time
         });
 
         // Clear form
