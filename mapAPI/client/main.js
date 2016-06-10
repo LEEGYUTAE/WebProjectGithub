@@ -9,7 +9,7 @@ Accounts.ui.config({
 });
 
 Router.configure({
-    layoutTemplate: 'rl',
+    layoutTemplate: 'mainLayout',
 });
 
 Template.login.events({
@@ -54,7 +54,6 @@ Template.signUp.events({
                 alert(err);
             } else {
                 alert("등록 되었습니다.");
-                Router.go('/');
             }
         });
     },
@@ -64,11 +63,17 @@ Template.signUp.events({
     },
 });
 
-Router.route('/', {
-    template : 'login'
+Template.logout.events({
+    'click #logout': function (evt, tmpl) {
+      Meteor.logout();
+    },
 });
 
-Router.route('/test1', {
+//Router.route('/', {
+//    template : 'login'
+//});
+
+Router.route('/', {
     template : 'test1'
 });
 
