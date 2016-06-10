@@ -1,5 +1,5 @@
 <template name="test1">
-{{#if currentUser}}
+  {{#if currentUser}}
     <style type="text/css">html, body {
         height: 100%;
         margin: 0;
@@ -7,7 +7,7 @@
     }
 
     #map {
-        height: 50%;
+        height: 90%;
     }
     </style>
     <nav class="navbar navbar-inverse">
@@ -58,7 +58,7 @@
                     '</div>' +
                     '<h1 id="firstHeading" class="firstHeading">좌표값</h1>' +
                     '<div id="bodyContent">' + '<form class="new-task">' +
-                    '<input type="text" name="text" placeholder="Type to add new tasks"/>' +
+                    '<input type="text" name="text" placeholder="Type to add new tasks"></input>'+
                     '</form>' +
                     '</div>' +
                     '</div>';
@@ -109,17 +109,13 @@
     {{/if}}
 </template>
 
-<body>
-<!--{{>yield}}-->
-</body>
-
 <template name="rl">
     {{>yield}}
 </template>
 
-<!--<template name="task">-->
-    <!--<li>{{text}}</li>-->
-<!--</template>-->
+<template name="task">
+    <li>{{text}}</li>
+</template>
 
 <template name="login">
     <div style="..." class="well">

@@ -10,12 +10,6 @@ Accounts.ui.config({
 
 Router.configure({
     layoutTemplate: 'rl',
-    //loadingTemplate: 'loading', //  라우터 이동간에 로딩시간에 나오는거
-    //notFoundTemplate: 'notFound',    //  url이 틀렷을떄  http://localhost:3000/contd 이렇게
-
-    //waitOn: function() {
-    //    console.log("global waitOn");
-    //}
 });
 
 Template.login.events({
