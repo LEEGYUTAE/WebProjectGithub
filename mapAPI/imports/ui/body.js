@@ -9,10 +9,18 @@ Template.test1.helpers({
     PrintUsername() {
       return Meteor.user().username;
     },
+    test123() {
+        var arr = [];
 
-    //mapInfo() {
-    //  return Tasks[0].lat + Tasks[0].lng;
-    //},
+        Tasks.find({}).forEach(function(docs){
+            console.log(docs.text);
+            arr.push(docs.text + "," + docs.lat + "," + docs.lng);
+        });
+
+        console.log(arr);
+        return arr;
+    },
+
 });
 
 Template.test1.events({

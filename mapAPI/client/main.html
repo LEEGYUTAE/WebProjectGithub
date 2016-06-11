@@ -35,15 +35,22 @@
                 </div>
             </div>
         </nav>
-
+        <input type="hidden" id="te11" value={{test123}}>
         <div id="map"></div>
-
         <script>
+//            var xy = $("#te11").val();
+//            xy = xy.split(",");
+//            alert("x:"+xy[0]+"/ y:"+xy[1]);
+
+            var haha = $("#te11").val();
+            alert(haha);
+
             var map;
             var markers = [];
             var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
             var labelIndex = 0;
             var infowindow;
+            var mapInfo;
 
             function initMap() {
                 var haightAshbury = {lat: 35.152, lng: 129.056};
@@ -61,8 +68,6 @@
                     addMarker(event.latLng, map);//클릭이벤트를 통한 마커생성
                 });
 
-//                addMarker(test, map);
-
                 var contentString = '<div id="content">' +
                         '<div id="siteNotice">' +
                         '</div>' +
@@ -77,18 +82,6 @@
                     content: contentString,
                 });
             }
-
-//            function firstMarker(location, map) {
-//                var marker = new google.maps.Marker({
-//                    position: location,
-//                    label: labels[labelIndex++ % labels.length],
-//                    map: map,
-//                    draggable: true,//마커를 움직일수 있게 하는 함수
-//                    title: 'location (Ayers Rock)'
-//                });
-//
-//                infowindow.open(map, marker);
-//            }
 
             function addMarker(location, map) {
 
