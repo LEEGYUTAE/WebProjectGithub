@@ -1,19 +1,17 @@
-import { Template } from 'meteor/templating';
+import {Template} from 'meteor/templating';
 
-import { Tasks } from '../api/tasks.js';
+import {Tasks} from '../api/tasks.js';
 
 Template.test1.helpers({
-    tasks() {
-        return Tasks.find({}, {sort: {createdAt: -1}});
-    },
     PrintUsername() {
-      return Meteor.user().username;
+        return Meteor.user().username;
     },
     contents() {
         var contentArr = [];
-        Tasks.find({}).forEach(function(docs){
-            contentArr.push(docs.text);
+        Tasks.find({}).forEach(function (docs) {
+            contentArr.push(docs.text+"/"+docs.lat+"/"+docs.lng);
         });
+        console.log(contentArr);
         return contentArr;
     }
 });
@@ -21,21 +19,22 @@ Template.test1.helpers({
 Template.test1.events({
     'submit .new-task'(event) {
         event.preventDefault();
-        // alert(event);
         const target = event.target;
         const text = target.text.value;
-        console.log("body event : " + lat + "/" + lng);
-       
+        console.log("body event : " + _lat + "/" + _lng);
+
+
         Tasks.insert({
-            text : text,
-            lat : lat,
-            lng : lng,
+            text: text,
+            lat:_lat,
+            lng:_lng,
             createdAt: new Date(),
             owner: Meteor.userId(),
-            username:Meteor.user().username
+            username: Meteor.user().username
         });
         // Clear form
         target.text.value = '';
     },
+    
 });
 

@@ -3,7 +3,6 @@ import '../imports/ui/body.js';
 import { Tasks } from '../imports/api/tasks.js';
 
 
-
 Accounts.ui.config({
     passwordSignupFields: 'USERNAME_ONLY',
 });
@@ -25,7 +24,6 @@ Template.login.events({
             }
             else {
                 alert("로그인 되었습니다.");
-                Router.go('test1');
             }
         });
     },
@@ -36,7 +34,6 @@ Template.login.events({
 });
 
 Template.signUp.events({
-
     'click button[name=Save]': function (evt, tmpl) {
 
         var info = {
@@ -65,6 +62,7 @@ Template.signUp.events({
 Template.logout.events({
     'click #logout': function (evt, tmpl) {
       Meteor.logout();
+
     },
 });
 

@@ -1,164 +1,155 @@
 <template name="test1">
     {{#if currentUser}}
-        <style type="text/css">html, body {
-            height: 100%;
-            margin: 0;
-            padding: 0;
-        }
+    <style type="text/css">html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
 
-        #map {
-            height: 90%;
-        }
-        </style>
+    #map {
+        height: 90%;
+    }
+    </style>
 
-        <nav class="navbar navbar-inverse">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar"><span
-                            class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="#">맛집GOGO</a></div>
-                <div class="collapse navbar-collapse" id="myNavbar">
-                    <ul class="nav navbar-nav">
-                        <li><a href="#" onclick="clearMarkers();">Hide Markers</a></li>
-                        <li><a href="#" onclick="showMarkers();">Show All Markers</a></li>
-                        <li><a href="#" onclick="deleteMarkers();">Delete Markers</a></li>
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#">{{PrintUsername}}</a></li>
-                        <li><a href="#">{{>logout}}<span class="glyphicon glyphicon-log-out"></span></a></li>
-                    </ul>
-                </div>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar"><span
+                        class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">맛집GOGO</a></div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav">
+                    <li><a href="#" onclick="clearMarkers();">Hide Markers</a></li>
+                    <li><a href="#" onclick="showMarkers();">Show All Markers</a></li>
+                    <li><a href="#" onclick="deleteMarkers();">Delete Markers</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#">{{PrintUsername}}</a></li>
+                    <li><a href="#">{{>logout}}<span class="glyphicon glyphicon-log-out"></span></a></li>
+                </ul>
             </div>
-        </nav>
+        </div>
+    </nav>
 
-        <input type="hidden" id="contents" value={{contents}}>
+    <input type="hidden" id="contents" value={{contents}}>
 
-        <div id="map"></div>
-        <script>
-//            var xy = $("#te11").val();
-//            xy = xy.split(",");
-//            alert("x:"+xy[0]+"/ y:"+xy[1]);
-            var map;
-            var markers = [];
-            var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-            var labelIndex = 0;
-            var infowindow;
-            var contents =$("#contents").val();
-            var mapInfo;
-            var lat, lng;
-            var contentString;
+    <div id="map"></div>
 
-            function initMap() {
-                var haightAshbury = {lat: 35.152, lng: 129.056};
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCBr1T8_N3_WeSy7GzDd0hmIWo5kiWm-sw&signed_in=true&callback=initMap">
+    </script>
+    <script>
+        var map;
+        var markers = [];
+        var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        var labelIndex = 0;
+        var infowindow;
+        var contents = $("#contents").val();
+        var mapInfo;
+        var _lat, _lng;
+        var contentString;
+        var s;
 
-                map = new google.maps.Map(document.getElementById('map'), {
-                    zoom: 17,
-                    center: haightAshbury,
-                });
 
-                google.maps.event.addListener(map, 'click', function (event) {
-//                    lat = event.latLng.lat();
-//                    lng = event.latLng.lng();
+        var content = document.getElementById("contents").value;
+        var arr = content.split(",");
 
-                    addMarker(event.latLng, map);//클릭이벤트를 통한 마커생성
-                });
-                console.log(lat);
-                console.log(lng);
-                contentString="위도 : "+lat+", 경도 : "+lng+"\n 내용 : "+contents+ '<form class="new-task">' +
+
+        function initMap() {
+            var haightAshbury = {lat: 35.152, lng: 129.056};
+
+            map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 17,
+                center: haightAshbury
+            });
+
+
+            google.maps.event.addListener(map, 'click', function (event) {
+                _lat = event.latLng.lat();
+                _lng = event.latLng.lng();
+                //console.log(_lat);
+                // console.log(_lng);
+                addMarker(event.latLng, map);//클릭이벤트를 통한 마커생성
+            });
+
+            google.maps.event.addListener(map, 'idle', function (event) {
+                for (var i = 0; i < arr.length; i++) {
+                  s= arr[i].split("/");
+                    console.log(s);
+                    var location = new google.maps.LatLng(parseFloat(s[1]), parseFloat(s[2]));
+                    console.log("확인 : " + arr);
+                    console.log("확인2 : " + s[2]);
+
+                    addMarker(location, map);
+                }
+
+                contentString = '위치' + s[1] + "," + s[2] + ', 내용 : ' + arr[0] + '<form class="new-task">' +
                         '<input type="text" name="text" placeholder="Type to add new tasks"> </input>' +
                         '</form>';
 
-
-
-            infowindow = new google.maps.InfoWindow({
+                infowindow = new google.maps.InfoWindow({
                     content: contentString,
                 });
+            });
+
+
+
+            console.log(_lat);
+            console.log(_lng);
+
+        }
+
+        function addMarker(location, map) {
+
+            var marker = new google.maps.Marker({
+                position: location,
+                label: labels[labelIndex++ % labels.length],
+                map: map,
+                draggable: true,//마커를 움직일수 있게 하는 함수
+                // title: 'location (Ayers Rock)',
+            });
+
+            marker.addListener('click', function () {
+                infowindow.open(map, marker);
+
+            });
+            markers.push(marker);//생성된 마커를 배열에 집어넣는다.
+        }
+        function setMapOnAll(map) {//모든 마커 출력함수
+            for (var i = 0; i < markers.length; i++) {
+                markers[i].setMap(map);
+                console.log(markers);
             }
+        }
 
-            function addMarker(location, map) {
-                lat = location.lat();
-                lng = location.lng();
-                var marker = new google.maps.Marker({
-                    position: location,
-                    label: labels[labelIndex++ % labels.length],
-                    map: map,
-                    draggable: true,//마커를 움직일수 있게 하는 함수
-                    title: 'location (Ayers Rock)'
-                });
+        function clearMarkers() {//모든 마커 안보이게 하는 함수
+            setMapOnAll(null);
+        }
 
-                marker.addListener('click', function () {
-                    infowindow.open(map, marker);
-                });
-                markers.push(marker);//생성된 마커를 배열에 집어넣는다.
-            }
+        function showMarkers() {//모든마커를 출력하는것
+            setMapOnAll(map);
 
-            function setMapOnAll(map) {//모든 마커 출력함수
-                for (var i = 0; i < markers.length; i++) {
-                    markers[i].setMap(map);
-                    console.log(markers);
-                }
-            }
+        }
 
-            function clearMarkers() {//모든 마커 안보이게 하는 함수
-                setMapOnAll(null);
-            }
+        function deleteMarkers() {//모든마커 삭제
+            clearMarkers();
+            markers = [];
+            labelIndex = 0;
+        }
+    </script>
 
-            function showMarkers() {//모든마커를 출력하는것
-                setMapOnAll(map);
 
-//                for(var i = 0; i < mapInfo.length; i++) {
-//                    firstMarker(mapInfo[i].lat + mapInfo[i].lng, map);
-//                }
-            }
-
-            function deleteMarkers() {//모든마커 삭제
-                clearMarkers();
-                markers = [];
-                labelIndex = 0;
-            }
-        </script>
-
-        <script async defer
-                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCBr1T8_N3_WeSy7GzDd0hmIWo5kiWm-sw&signed_in=true&callback=initMap">
-        </script>
-
-        {{else}}
     {{/if}}
 </template>
 
 <template name="mainLayout">
     {{#if currentUser}}
     {{else}}
-        {{>login}}
+    {{>login}}
     {{/if}}
     {{>yield}}
 </template>
 
 <template name="task">
     <li>{{text}}</li>
-</template>
-
-<template name="login">
-    <div style="..." class="well">
-        <p>이름 : <input type="text" name="username"/></p>
-        <p>암호 : <input type="password" name="password"/></p>
-        <button class="btn" name="LogIn">LogIn</button>
-        <button class="btn" name="SignUp">SignUp</button>
-    </div>
-</template>
-
-<template name="logout">
-    <buttoon id="logout">Logout</buttoon>
-</template>
-
-<template name="signUp">
-    <div style="..." class="well">
-        <p>이름 : <input type="text" name="username"/></p>
-        <p>암호 : <input type="password" name="password"/></p>
-        <p>메일 : <input type="text" name="email"/></p>
-        <p>별명 : <input type="text" name="nickname"/></p>
-        <button class="btn" name="Cancel">Cancel</button>
-        <button class="btn" name="Save">Save</button>
-    </div>
 </template>
