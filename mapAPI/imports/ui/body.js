@@ -31,23 +31,16 @@ Template.test1.events({
         const text = target.text.value;
         alert(text);
         console.log("body event : " + lat + "/" + lng);
-<<<<<<< HEAD
-       
-        Tasks.insert({
-            text : text,
-            lat : lat,
-            lng : lng,
-            createdAt: new Date(),
-            owner: Meteor.userId(),
-            username:Meteor.user().username
-=======
+        console.log(locaca+ "하하하");
 
         Tasks.insert({
-            text : text,
-            lat : lat.toFixed(3),//좌표갑 소수점 3자리까지만 저장
-            lng : lng.toFixed(3),//좌표갑 소수점 3자리까지만 저장
+            text: text,
+            lat: lat,
+            lng: lng,
             createdAt: new Date(),
->>>>>>> origin/master
+            owner: Meteor.userId(),
+            username: Meteor.user().username,
+            locaca: locaca,
         });
 
         // Clear form

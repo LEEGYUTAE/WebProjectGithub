@@ -33,32 +33,26 @@
                 </div>
             </div>
         </nav>
-<<<<<<< HEAD
+
 
         <input type="hidden" id="content" value={{task}}>
 
-=======
+
         <input type="hidden" id="te11" value={{test123}}>
->>>>>>> origin/master
+
         <div id="map"></div>
         <script>
-//            var xy = $("#te11").val();
-//            xy = xy.split(",");
-//            alert("x:"+xy[0]+"/ y:"+xy[1]);
 
             var haha = $("#te11").val();
+            haha = haha.split(",");
             alert(haha);
-
             var map;
             var markers = [];
             var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
             var labelIndex = 0;
             var infowindow;
-<<<<<<< HEAD
+
             var content = document.getElementById("content").value;
-=======
-            var mapInfo;
->>>>>>> origin/master
 
             function initMap() {
                 var haightAshbury = {lat: 35.152, lng: 129.056};
@@ -66,32 +60,50 @@
                 map = new google.maps.Map(document.getElementById('map'), {
                     zoom: 17,
                     center: haightAshbury,
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/master
                 });
+
+//                for (var i = 0; i < haha.length; i = i + 3) {
+//                                            for (var i = 0; i < haha.length; i = i + 3) {
+//                            //            var xy = $("#te11").val();
+//                            //            xy = xy.split(",");
+//                            //            alert("x:"+xy[0]+"/ y:"+xy[1]);
+//                            //var location = "(" + haha[i+1] + "," + haha[i+2] + ")";
+//                            var location = new google.maps.LatLng(parseFloat(haha[i + 1]), parseFloat(haha[i + 2]));
+//                            console.log("확인 : " + location);
+//                            //addMarker(location, map);
+//                        }
+//                }
+
+//                google.maps.event.addListener(map, 'idle', function() {
+//
+//                        for (var i = 0; i < haha.length; i = i + 3) {
+//                            //            var xy = $("#te11").val();
+//                            //            xy = xy.split(",");
+//                            //            alert("x:"+xy[0]+"/ y:"+xy[1]);
+//                            //var location = "(" + haha[i+1] + "," + haha[i+2] + ")";
+//                            var location = new google.maps.LatLng(parseFloat(haha[i + 1]), parseFloat(haha[i + 2]));
+//                            console.log("확인 : " + location);
+//                            addMarker(location, map);
+//                        }
+//                });
 
                 google.maps.event.addListener(map, 'click', function (event) {
                     console.log(event.latLng.lat());
                     console.log(event.latLng.lng());
                     lat = event.latLng.lat();
                     lng = event.latLng.lng();
+                    locaca = event.latLng;
                     addMarker(event.latLng, map);//클릭이벤트를 통한 마커생성
-
                 });
 
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/master
                 var contentString = '<div id="content">' +
                         '<div id="siteNotice">' +
                         '</div>' +
                         '<h1 id="firstHeading" class="firstHeading">좌표값</h1>' +
                         '<div id="bodyContent">' + '<form class="new-task">' +
                         '<input type="text" name="text" placeholder="Type to add new tasks"> </input>' +
-                        '</form>' +content+
+                        '</form>' + content +
                         '</div>' +
                         '</div>';
 
@@ -109,43 +121,39 @@
                     label: labels[labelIndex++ % labels.length],
                     map: map,
                     draggable: true,//마커를 움직일수 있게 하는 함수
-                    title: 'location (Ayers Rock)'
+                    title: 'location (Ayers Rock)',
                 });
 
                 marker.addListener('click', function () {
                     infowindow.open(map, marker);
-<<<<<<< HEAD
+
+                    markers.push(marker);//생성된 마커를 배열에 집어넣는다.
                 });
-=======
-                })
->>>>>>> origin/master
 
-                markers.push(marker);//생성된 마커를 배열에 집어넣는다.
-            }
-
-            function setMapOnAll(map) {//모든 마커 출력함수
-                for (var i = 0; i < markers.length; i++) {
-                    markers[i].setMap(map);
-                    console.log(markers);
+                function setMapOnAll(map) {//모든 마커 출력함수
+                    for (var i = 0; i < markers.length; i++) {
+                        markers[i].setMap(map);
+                        console.log(markers);
+                    }
                 }
-            }
 
-            function clearMarkers() {//모든 마커 안보이게 하는 함수
-                setMapOnAll(null);
-            }
+                function clearMarkers() {//모든 마커 안보이게 하는 함수
+                    setMapOnAll(null);
+                }
 
-            function showMarkers() {//모든마커를 출력하는것
-                setMapOnAll(map);
+                function showMarkers() {//모든마커를 출력하는것
+                    setMapOnAll(map);
 
 //                for(var i = 0; i < mapInfo.length; i++) {
 //                    firstMarker(mapInfo[i].lat + mapInfo[i].lng, map);
 //                }
-            }
+                }
 
-            function deleteMarkers() {//모든마커 삭제
-                clearMarkers();
-                markers = [];
-                labelIndex = 0;
+                function deleteMarkers() {//모든마커 삭제
+                    clearMarkers();
+                    markers = [];
+                    labelIndex = 0;
+                }
             }
         </script>
 
@@ -153,7 +161,7 @@
                 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCBr1T8_N3_WeSy7GzDd0hmIWo5kiWm-sw&signed_in=true&callback=initMap">
         </script>
 
-        {{else}}
+    {{else}}
     {{/if}}
 </template>
 
