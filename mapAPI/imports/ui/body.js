@@ -19,11 +19,12 @@ Template.test1.events({
         const text = target.text.value;
 
         console.log("body event : " + lat + "/" + lng);
+
         Tasks.insert({
             text : text,
             lat : lat.toFixed(3),//좌표갑 소수점 3자리까지만 저장
             lng : lng.toFixed(3),//좌표갑 소수점 3자리까지만 저장
-            createdAt: new Date()
+            createdAt: new Date(),
         });
 
         // Clear form
