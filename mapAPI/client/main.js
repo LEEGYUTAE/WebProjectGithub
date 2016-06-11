@@ -2,7 +2,7 @@ import {Accounts} from 'meteor/accounts-base';
 import '../imports/ui/body.js';
 import { Tasks } from '../imports/api/tasks.js';
 
-var lat, lng;
+
 
 Accounts.ui.config({
     passwordSignupFields: 'USERNAME_ONLY',

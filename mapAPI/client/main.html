@@ -20,8 +20,6 @@
                     <a class="navbar-brand" href="#">맛집GOGO</a></div>
                 <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="#">Home</a></li>
-                        <li><a href="#">Page 1</a></li>
                         <li><a href="#" onclick="clearMarkers();">Hide Markers</a></li>
                         <li><a href="#" onclick="showMarkers();">Show All Markers</a></li>
                         <li><a href="#" onclick="deleteMarkers();">Delete Markers</a></li>
@@ -33,32 +31,23 @@
                 </div>
             </div>
         </nav>
-<<<<<<< HEAD
 
-        <input type="hidden" id="content" value={{task}}>
+        <input type="hidden" id="contents" value={{contents}}>
 
-=======
-        <input type="hidden" id="te11" value={{test123}}>
->>>>>>> origin/master
         <div id="map"></div>
         <script>
 //            var xy = $("#te11").val();
 //            xy = xy.split(",");
 //            alert("x:"+xy[0]+"/ y:"+xy[1]);
-
-            var haha = $("#te11").val();
-            alert(haha);
-
             var map;
             var markers = [];
             var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
             var labelIndex = 0;
             var infowindow;
-<<<<<<< HEAD
-            var content = document.getElementById("content").value;
-=======
+            var contents =$("#contents").val();
             var mapInfo;
->>>>>>> origin/master
+            var lat, lng;
+            var contentString;
 
             function initMap() {
                 var haightAshbury = {lat: 35.152, lng: 129.056};
@@ -66,44 +55,30 @@
                 map = new google.maps.Map(document.getElementById('map'), {
                     zoom: 17,
                     center: haightAshbury,
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/master
                 });
 
                 google.maps.event.addListener(map, 'click', function (event) {
-                    console.log(event.latLng.lat());
-                    console.log(event.latLng.lng());
-                    lat = event.latLng.lat();
-                    lng = event.latLng.lng();
+//                    lat = event.latLng.lat();
+//                    lng = event.latLng.lng();
+
                     addMarker(event.latLng, map);//클릭이벤트를 통한 마커생성
-
                 });
-
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/master
-                var contentString = '<div id="content">' +
-                        '<div id="siteNotice">' +
-                        '</div>' +
-                        '<h1 id="firstHeading" class="firstHeading">좌표값</h1>' +
-                        '<div id="bodyContent">' + '<form class="new-task">' +
+                console.log(lat);
+                console.log(lng);
+                contentString="위도 : "+lat+", 경도 : "+lng+"\n 내용 : "+contents+ '<form class="new-task">' +
                         '<input type="text" name="text" placeholder="Type to add new tasks"> </input>' +
-                        '</form>' +content+
-                        '</div>' +
-                        '</div>';
+                        '</form>';
 
-                infowindow = new google.maps.InfoWindow({
+
+
+            infowindow = new google.maps.InfoWindow({
                     content: contentString,
                 });
             }
 
             function addMarker(location, map) {
-
-                console.log(location);
-
+                lat = location.lat();
+                lng = location.lng();
                 var marker = new google.maps.Marker({
                     position: location,
                     label: labels[labelIndex++ % labels.length],
@@ -114,12 +89,7 @@
 
                 marker.addListener('click', function () {
                     infowindow.open(map, marker);
-<<<<<<< HEAD
                 });
-=======
-                })
->>>>>>> origin/master
-
                 markers.push(marker);//생성된 마커를 배열에 집어넣는다.
             }
 

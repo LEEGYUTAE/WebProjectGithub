@@ -9,18 +9,13 @@ Template.test1.helpers({
     PrintUsername() {
       return Meteor.user().username;
     },
-    test123() {
-        var arr = [];
-
+    contents() {
+        var contentArr = [];
         Tasks.find({}).forEach(function(docs){
-            console.log(docs.text);
-            arr.push(docs.text + "," + docs.lat + "," + docs.lng);
+            contentArr.push(docs.text);
         });
-
-        console.log(arr);
-        return arr;
-    },
-
+        return contentArr;
+    }
 });
 
 Template.test1.events({
@@ -29,9 +24,7 @@ Template.test1.events({
         // alert(event);
         const target = event.target;
         const text = target.text.value;
-        alert(text);
         console.log("body event : " + lat + "/" + lng);
-<<<<<<< HEAD
        
         Tasks.insert({
             text : text,
@@ -40,16 +33,7 @@ Template.test1.events({
             createdAt: new Date(),
             owner: Meteor.userId(),
             username:Meteor.user().username
-=======
-
-        Tasks.insert({
-            text : text,
-            lat : lat.toFixed(3),//좌표갑 소수점 3자리까지만 저장
-            lng : lng.toFixed(3),//좌표갑 소수점 3자리까지만 저장
-            createdAt: new Date(),
->>>>>>> origin/master
         });
-
         // Clear form
         target.text.value = '';
     },
