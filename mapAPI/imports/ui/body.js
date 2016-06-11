@@ -9,6 +9,10 @@ Template.test1.helpers({
     PrintUsername() {
       return Meteor.user().username;
     },
+
+    //mapInfo() {
+    //  return Tasks[0].lat + Tasks[0].lng;
+    //},
 });
 
 Template.test1.events({

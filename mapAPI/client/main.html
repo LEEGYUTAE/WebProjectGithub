@@ -50,7 +50,7 @@
 
                 map = new google.maps.Map(document.getElementById('map'), {
                     zoom: 17,
-                    center: haightAshbury
+                    center: haightAshbury,
                 });
 
                 google.maps.event.addListener(map, 'click', function (event) {
@@ -60,6 +60,8 @@
                     lng = event.latLng.lng();
                     addMarker(event.latLng, map);//클릭이벤트를 통한 마커생성
                 });
+
+//                addMarker(test, map);
 
                 var contentString = '<div id="content">' +
                         '<div id="siteNotice">' +
@@ -72,9 +74,21 @@
                         '</div>';
 
                 infowindow = new google.maps.InfoWindow({
-                    content: contentString
+                    content: contentString,
                 });
             }
+
+//            function firstMarker(location, map) {
+//                var marker = new google.maps.Marker({
+//                    position: location,
+//                    label: labels[labelIndex++ % labels.length],
+//                    map: map,
+//                    draggable: true,//마커를 움직일수 있게 하는 함수
+//                    title: 'location (Ayers Rock)'
+//                });
+//
+//                infowindow.open(map, marker);
+//            }
 
             function addMarker(location, map) {
 
@@ -108,6 +122,10 @@
 
             function showMarkers() {//모든마커를 출력하는것
                 setMapOnAll(map);
+
+//                for(var i = 0; i < mapInfo.length; i++) {
+//                    firstMarker(mapInfo[i].lat + mapInfo[i].lng, map);
+//                }
             }
 
             function deleteMarkers() {//모든마커 삭제
@@ -120,6 +138,7 @@
         <script async defer
                 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCBr1T8_N3_WeSy7GzDd0hmIWo5kiWm-sw&signed_in=true&callback=initMap">
         </script>
+
         {{else}}
     {{/if}}
 </template>
