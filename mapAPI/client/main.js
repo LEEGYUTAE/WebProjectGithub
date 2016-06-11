@@ -1,6 +1,6 @@
 import {Accounts} from 'meteor/accounts-base';
 import '../imports/ui/body.js';
-import '../imports/api/tasks.js';
+import { Tasks } from '../imports/api/tasks.js';
 
 var lat, lng;
 
