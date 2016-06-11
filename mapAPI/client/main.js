@@ -40,7 +40,6 @@ Template.signUp.events({
     'click button[name=Save]': function (evt, tmpl) {
 
         var info = {
-
             username: tmpl.find('input[name=username]').value,
             password: tmpl.find('input[name=password]').value,
             email: tmpl.find('input[name=email]').value,
@@ -68,10 +67,6 @@ Template.logout.events({
       Meteor.logout();
     },
 });
-
-//Router.route('/', {
-//    template : 'login'
-//});
 
 Router.route('/', {
     template : 'test1'

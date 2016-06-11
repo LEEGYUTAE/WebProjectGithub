@@ -26,14 +26,14 @@
                         <li><a href="#" onclick="deleteMarkers();">Delete Markers</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#">{{PrintUsername}}<span class="glyphicon glyphicon-log-in"></span></a></li>
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li>{{>logout}}</li>
+                        <li><a href="#">{{PrintUsername}}</a></li>
+                        <li><a href="#">{{>logout}}<span class="glyphicon glyphicon-log-out"></span></a></li>
                     </ul>
                 </div>
             </div>
         </nav>
+
+        <input type="hidden" id="content" value={{task}}>
 
         <div id="map"></div>
 
@@ -43,12 +43,14 @@
             var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
             var labelIndex = 0;
             var infowindow;
+            var content = document.getElementById("content").value;
 
             function initMap() {
                 var haightAshbury = {lat: 35.152, lng: 129.056};
                 map = new google.maps.Map(document.getElementById('map'), {
                     zoom: 17,
-                    center: haightAshbury
+                    center: haightAshbury,
+
                 });
                 google.maps.event.addListener(map, 'click', function (event) {
                     console.log(event.latLng.lat());
@@ -56,14 +58,17 @@
                     lat = event.latLng.lat();
                     lng = event.latLng.lng();
                     addMarker(event.latLng, map);//클릭이벤트를 통한 마커생성
+
                 });
+
+
                 var contentString = '<div id="content">' +
                         '<div id="siteNotice">' +
                         '</div>' +
                         '<h1 id="firstHeading" class="firstHeading">좌표값</h1>' +
                         '<div id="bodyContent">' + '<form class="new-task">' +
-                        '<input type="text" name="text" placeholder="Type to add new tasks"></input>' +
-                        '</form>' +
+                        '<input type="text" name="text" placeholder="Type to add new tasks"> </input>' +
+                        '</form>' +content+
                         '</div>' +
                         '</div>';
 
@@ -83,15 +88,17 @@
                 marker.addListener('click', function () {
                     infowindow.open(map, marker);
                 });
+
                 markers.push(marker);//생성된 마커를 배열에 집어넣는다.
             }
+
             function setMapOnAll(map) {//모든 마커 출력함수
                 for (var i = 0; i < markers.length; i++) {
                     markers[i].setMap(map);
                 }
             }
 
-            function clearMarkers() {//모든 마커 삭제 함수
+            function clearMarkers() {//모든 마커 안보이게 하는 함수
                 setMapOnAll(null);
             }
 
@@ -118,9 +125,6 @@
 
 <template name="mainLayout">
     {{#if currentUser}}
-        <div>
-            <p> 로그인 중입니다. </p>
-        </div>
     {{else}}
         {{>login}}
     {{/if}}
@@ -141,7 +145,7 @@
 </template>
 
 <template name="logout">
-    <button id="logout">Logout</button>
+    <buttoon id="logout">Logout</buttoon>
 </template>
 
 <template name="signUp">
