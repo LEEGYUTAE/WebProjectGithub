@@ -50,6 +50,7 @@
         var _lat, _lng;
         var contentString;
         var s;
+        var v = null;
 
 
         var content = document.getElementById("contents").value;
@@ -72,24 +73,23 @@
 
             google.maps.event.addListener(map, 'idle', function (event) {
                 for (var i = 0; i < arr.length; i++) {
-                  s= arr[i].split("/");
+                  s = arr[i].split("/");
                     console.log(s);
                     var location = new google.maps.LatLng(parseFloat(s[1]), parseFloat(s[2]));
+                    console.log(location);
                     addMarker(location, map);
                 }
 
-                console.log(
-                        Meteor.userId()
-                );
+//                 contentString = '위치' + s[1] + "," + s[2] + ', 내용 : ' + s[0] + '<form class="new-task">' +
+//                        '<input type="text" name="text" placeholder="Type to add new tasks"> </input>' +
+//                                '<button></>'
+//                        '</form>';
 
-                 contentString = '위치' + s[1] + "," + s[2] + ', 내용 : ' + s[0] + '<form class="new-task">' +
-                        '<input type="text" name="text" placeholder="Type to add new tasks"> </input>' +
-                                '<buttom></>'
-                        '</form>';
 
-                infowindow = new google.maps.InfoWindow({
-                    content: contentString,
-                });
+//                infowindow = new google.maps.InfoWindow({
+////                    content: contentString,
+//                });
+
             });
             console.log(_lat);
             console.log(_lng);
@@ -103,11 +103,42 @@
                 map: map,
             });
 
-            marker.addListener('click', function () {
+            marker.addListener('click', function (evt) {
+
+                var now_lat = evt.latLng.lat();
+                var now_lng = evt.latLng.lng();
+
+                for (var i = 0; i < arr.length; i++) {
+                    s[i] = arr[i].split("/");
+                    //var location = new google.maps.LatLng(parseFloat(s[1]), parseFloat(s[2]));
+                    if (s[i][1] == evt.latLng.lat() && s[i][2] == evt.latLng.lng()) {
+                        v = arr[i].split("/");
+                    }
+                }
+
+                if ( v != null) {
+                    infowindow = new google.maps.InfoWindow({
+//                    content: contentString,
+                        content: /*'위치' + v[1] + "," + v[2] + ','+ */'내용 : ' + v[0] + '<form class="new-task">' +
+                        '<input type="text" name="text" placeholder="Type to add new tasks"> </input>' + '</form>'
+                    });
+                    v = null;
+                }else {
+                    infowindow = new google.maps.InfoWindow({
+//                    content: contentString,
+                        content: '입력하세요' + '<form class="new-task">' +
+                        '<input type="text" name="text" placeholder="Type to add new tasks"> </input>' + '</form>'
+                    });
+                    v = null;
+                }
+
                     infowindow.open(map, marker);
+
             });
+
             markers.push(marker);//생성된 마커를 배열에 집어넣는다.
         }
+
         function setMapOnAll(map) {//모든 마커 출력함수
             for (var i = 0; i < markers.length; i++) {
                 markers[i].setMap(map);
