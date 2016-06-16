@@ -64,7 +64,6 @@ Template.logout.events({
     'click #logout': function (evt, tmpl) {
         $("iframe[name='gm-master']").remove();//로그아웃을 해줄때 마다 구글 Map API에서 지원하는 지도출력하는 script를 삭제해준다.
       Meteor.logout();
-        console.log("시발")
     },
 });
 

@@ -78,6 +78,10 @@
                     addMarker(location, map);
                 }
 
+                console.log(
+                        Meteor.userId()
+                );
+
                  contentString = '위치' + s[1] + "," + s[2] + ', 내용 : ' + s[0] + '<form class="new-task">' +
                         '<input type="text" name="text" placeholder="Type to add new tasks"> </input>' +
                                 '<buttom></>'
