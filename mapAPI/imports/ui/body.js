@@ -24,7 +24,7 @@ Template.test1.events({
         console.log("body event : " + _lat + "/" + _lng);
 
         Tasks.insert({
-            text: Meteor.user().username + ':' + text,
+            text: Meteor.user().username + ' : ' + text,
             lat:_lat,
             lng:_lng,
             createdAt: new Date(),
@@ -32,6 +32,7 @@ Template.test1.events({
         });
         // Clear form
         target.text.value = '';
+        location.reload();
     },
 
     'submit .up'(event){
@@ -64,10 +65,12 @@ Template.test1.events({
         console.log(idid);
 
         Tasks.update(idid,{
-            $set:{text: text123 + "/" + text},
+            $set:{text: text123 + " | "+ Meteor.user().username + " : " + text},
         });
 
         target.text.value = '';
+        //Meteor.refresh();
+        location.reload();
     },
 
 });

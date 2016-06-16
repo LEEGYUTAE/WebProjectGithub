@@ -99,10 +99,27 @@
                     }
                 }
 
+                var haha = [];
+                var final;
+
+                if (v != null) {
+                    haha = v[0].split("|");
+
+                    final = haha[0];
+
+                    if (haha.length != 1) {
+                        for (var i = 1; i < haha.length; i++) {
+                            final += "<br>" + haha[i];
+                        }
+                    }
+                }
+
+                console.log(final);
+
                 if ( v != null) {
                     infowindow = new google.maps.InfoWindow({
 //                    content: contentString,
-                        content:'내용 : ' + v[0] + '<form class="up">' +
+                        content : final + '<form class="up">' +
                         '<input type="text" name="text" placeholder="추가 내용 입력"> </input>'
                         + '<input type="hidden" id="latlat" value=' + v[1] + '>'
                         + '<input type="hidden" id="lnglng" value=' + v[2] + '>'
@@ -111,7 +128,7 @@
                     v = null;
                 }else {
                     infowindow = new google.maps.InfoWindow({
-                        content: '입력하세요' + '<form class="new-task">' +
+                        content : '입력하세요' + '<form class="new-task">' +
                         '<input type="text" name="text" placeholder="Type to add new tasks"> </input>' +'</form>'
                     });
                     v = null;
@@ -156,7 +173,6 @@
     {{>login}}
     {{/if}}
     {{>yield}}
-
 </template>
 
 <template name="task">
