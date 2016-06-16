@@ -29,12 +29,22 @@ Template.test1.events({
             lat:_lat,
             lng:_lng,
             createdAt: new Date(),
-            owner: Meteor.userId(),
             username: Meteor.user().username
         });
         // Clear form
         target.text.value = '';
     },
-    
+});
+
+Template.task.events({
+    'submit .new-task'(event){
+        event.preventDefault();
+        const target = event.target;
+        const text = target.text.value;
+        Tasks.update(this.text,{
+            $set:{text:this.text},
+        })
+    }
+
 });
 

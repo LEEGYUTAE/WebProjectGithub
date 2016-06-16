@@ -1,6 +1,5 @@
 import {Accounts} from 'meteor/accounts-base';
 import '../imports/ui/body.js';
-import { Tasks } from '../imports/api/tasks.js';
 
 
 Accounts.ui.config({
@@ -23,7 +22,9 @@ Template.login.events({
                 alert('로그인이 실패 하였습니다. \n' + err);
             }
             else {
+                Router.go('/');
                 alert("로그인 되었습니다.");
+
             }
         });
     },
@@ -61,6 +62,7 @@ Template.signUp.events({
 
 Template.logout.events({
     'click #logout': function (evt, tmpl) {
+        $("iframe[name='gm-master']").remove();//로그아웃을 해줄때 마다 구글 Map API에서 지원하는 지도출력하는 script를 삭제해준다.
       Meteor.logout();
 
     },
@@ -69,6 +71,8 @@ Template.logout.events({
 Router.route('/', {
     template : 'test1'
 });
+
+
 
 Router.route('/signUp', {
     template : 'signUp'
