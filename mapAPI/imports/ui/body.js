@@ -23,9 +23,8 @@ Template.test1.events({
         const text = target.text.value;
         console.log("body event : " + _lat + "/" + _lng);
 
-
         Tasks.insert({
-            text: text,
+            text: Meteor.user().username + ':' + text,
             lat:_lat,
             lng:_lng,
             createdAt: new Date(),
@@ -34,17 +33,42 @@ Template.test1.events({
         // Clear form
         target.text.value = '';
     },
-});
 
-Template.task.events({
-    'submit .new-task'(event){
+    'submit .up'(event){
         event.preventDefault();
         const target = event.target;
         const text = target.text.value;
-        Tasks.update(this.text,{
-            $set:{text:this.text},
-        })
-    }
+
+        var latlat = $("#latlat").val();
+        var lnglng = $("#lnglng").val();
+
+        var contentArr1 = [];
+        Tasks.find({}).forEach(function (docs) {
+            contentArr1.push(docs.text + "/" + docs._id+"/"+docs.lat+"/"+docs.lng);
+        });
+
+        console.log(contentArr1);
+
+        var con = [];
+        var idid = null;
+        var text123 = null;
+
+        for ( var i = 0; i < contentArr1.length; i++) {
+            con[i] = contentArr1[i].split("/");
+            if (con[i][2] == latlat && con[i][3] == lnglng) {
+                idid = con[i][1];
+                text123 = con[i][0];
+            }
+        }
+
+        console.log(idid);
+
+        Tasks.update(idid,{
+            $set:{text: text123 + "/" + text},
+        });
+
+        target.text.value = '';
+    },
 
 });
 

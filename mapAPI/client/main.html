@@ -42,7 +42,6 @@
     <script>
         var map;
         var markers = [];
-        var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         var labelIndex = 0;
         var infowindow;
         var contents = $("#contents").val();
@@ -79,17 +78,6 @@
                     console.log(location);
                     addMarker(location, map);
                 }
-
-//                 contentString = '위치' + s[1] + "," + s[2] + ', 내용 : ' + s[0] + '<form class="new-task">' +
-//                        '<input type="text" name="text" placeholder="Type to add new tasks"> </input>' +
-//                                '<button></>'
-//                        '</form>';
-
-
-//                infowindow = new google.maps.InfoWindow({
-////                    content: contentString,
-//                });
-
             });
             console.log(_lat);
             console.log(_lng);
@@ -99,18 +87,13 @@
 
             var marker = new google.maps.Marker({
                 position: location,
-                label: labels[labelIndex++ % labels.length],
                 map: map,
             });
 
             marker.addListener('click', function (evt) {
 
-                var now_lat = evt.latLng.lat();
-                var now_lng = evt.latLng.lng();
-
                 for (var i = 0; i < arr.length; i++) {
                     s[i] = arr[i].split("/");
-                    //var location = new google.maps.LatLng(parseFloat(s[1]), parseFloat(s[2]));
                     if (s[i][1] == evt.latLng.lat() && s[i][2] == evt.latLng.lng()) {
                         v = arr[i].split("/");
                     }
@@ -119,21 +102,21 @@
                 if ( v != null) {
                     infowindow = new google.maps.InfoWindow({
 //                    content: contentString,
-                        content: /*'위치' + v[1] + "," + v[2] + ','+ */'내용 : ' + v[0] + '<form class="new-task">' +
-                        '<input type="text" name="text" placeholder="Type to add new tasks"> </input>' + '</form>'
+                        content:'내용 : ' + v[0] + '<form class="up">' +
+                        '<input type="text" name="text" placeholder="추가 내용 입력"> </input>'
+                        + '<input type="hidden" id="latlat" value=' + v[1] + '>'
+                        + '<input type="hidden" id="lnglng" value=' + v[2] + '>'
+                        + '</form>'
                     });
                     v = null;
                 }else {
                     infowindow = new google.maps.InfoWindow({
-//                    content: contentString,
                         content: '입력하세요' + '<form class="new-task">' +
-                        '<input type="text" name="text" placeholder="Type to add new tasks"> </input>' + '</form>'
+                        '<input type="text" name="text" placeholder="Type to add new tasks"> </input>' +'</form>'
                     });
                     v = null;
                 }
-
                     infowindow.open(map, marker);
-
             });
 
             markers.push(marker);//생성된 마커를 배열에 집어넣는다.
