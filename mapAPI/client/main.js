@@ -51,6 +51,7 @@ Template.signUp.events({
                 alert(err);
             } else {
                 alert("등록 되었습니다.");
+                Router.go('/');
             }
         });
     },
